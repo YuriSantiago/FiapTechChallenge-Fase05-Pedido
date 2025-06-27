@@ -3,10 +3,6 @@
     public class ProdutoDTO
     {
 
-        public int Id { get; set; }
-
-        public DateTime DataInclusao { get; set; }
-
         public required string Nome { get; set; }
 
         public required string Descricao { get; set; }

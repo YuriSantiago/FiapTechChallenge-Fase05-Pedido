@@ -15,5 +15,7 @@
 
         public required Categoria Categoria { get; set; }
 
+        public ICollection<PedidoItem>? PedidoItens { get; set; }
+
     }
 }

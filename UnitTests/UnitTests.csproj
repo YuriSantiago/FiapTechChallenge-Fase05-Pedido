@@ -18,7 +18,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CadastroProdutor\CadastroProdutor.csproj" />
     <ProjectReference Include="..\Core\Core.csproj" />
   </ItemGroup>
 

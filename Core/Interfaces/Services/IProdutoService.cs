@@ -15,7 +15,7 @@ namespace Core.Interfaces.Services
 
         void Create(ProdutoRequest produtoRequest);
 
-        void Put(ProdutoUpdateRequest produtoUpdateRequest);
+        void Put(PedidoCancelationRequest produtoUpdateRequest);
 
         void Delete(int id);
 
