@@ -13,6 +13,8 @@ namespace Core.Interfaces.Services
 
         void Create(PedidoRequest pedidoRequest);
 
+        bool VerifyPossibilityToCancel(int id);
+
         void Cancel(PedidoCancelationRequest pedidoCancelationRequest);
 
         void Delete(int id);

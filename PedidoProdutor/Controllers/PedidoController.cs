@@ -113,6 +113,9 @@ namespace PedidoProdutor.Controllers
 
             try
             {
+                if (!_pedidoService.VerifyPossibilityToCancel(pedidoCancelationRequest.Id))
+                    throw new Exception("Pedido não pode mais ser cancelado!");
+
                 var nomeFila = _configuration.GetSection("MassTransit:Queues")["PedidoCancelamentoQueue"] ?? string.Empty;
                 var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{nomeFila}"));
                 await endpoint.Send(pedidoCancelationRequest);

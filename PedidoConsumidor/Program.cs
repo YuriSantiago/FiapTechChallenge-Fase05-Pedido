@@ -18,6 +18,7 @@ var queueExclusaoPedido = configuration.GetSection("MassTransit:Queues")["Pedido
 
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 
+builder.Services.AddScoped<IPedidoControleCozinhaRepository, PedidoControleCozinhaRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IPedidoItemRepository, PedidoItemRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();

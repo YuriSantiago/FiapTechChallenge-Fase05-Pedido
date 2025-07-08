@@ -1,5 +1,6 @@
 ﻿using Core.DTOs;
 using Core.Entities;
+using Core.Enums;
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using Core.Requests.Create;
@@ -10,14 +11,15 @@ namespace Core.Services
 {
     public class PedidoService : IPedidoService
     {
-
+        private readonly IPedidoControleCozinhaRepository _pedidoControleCozinhaRepository;
         private readonly IPedidoRepository _pedidoRepository;
         private readonly IPedidoItemRepository _pedidoItemRepository;
         private readonly IProdutoRepository _produtoRepository;
         private readonly IUsuarioRepository _usuarioRepository;
 
-        public PedidoService(IPedidoRepository pedidoRepository, IPedidoItemRepository pedidoItemRepository, IProdutoRepository produtoRepository, IUsuarioRepository usuarioRepository)
+        public PedidoService(IPedidoControleCozinhaRepository pedidoControleCozinhaRepository, IPedidoRepository pedidoRepository, IPedidoItemRepository pedidoItemRepository, IProdutoRepository produtoRepository, IUsuarioRepository usuarioRepository)
         {
+            _pedidoControleCozinhaRepository = pedidoControleCozinhaRepository;
             _pedidoRepository = pedidoRepository;
             _pedidoItemRepository = pedidoItemRepository;
             _produtoRepository = produtoRepository;
@@ -146,17 +148,46 @@ namespace Core.Services
 
             _pedidoRepository.Create(pedido);
 
+            var pedidoControleCozinha = new PedidoControleCozinha()
+            {
+                PedidoId = pedido.Id,
+                NomeCliente = usuario.Nome,
+                Status = StatusPedido.Pendente,
+                Pedido = pedido
+            };
+
+            _pedidoControleCozinhaRepository.Create(pedidoControleCozinha);
+
             IncluirItensPedido(pedido, pedidoRequest.Itens);
+        }
+
+        public bool VerifyPossibilityToCancel(int id)
+        {
+            var pedido = _pedidoRepository.GetById(id);
+
+            switch (pedido.Status)
+            {
+                case StatusPedido.Pendente:
+                    return true;
+                default: return false;
+            }
         }
 
         public void Cancel(PedidoCancelationRequest pedidoCancelationRequest)
         {
             var pedido = _pedidoRepository.GetById(pedidoCancelationRequest.Id);
-
             pedido.Status = StatusPedido.Cancelado;
             pedido.DescricaoCancelamento = pedidoCancelationRequest.DescricaoCancelamento;
-
             _pedidoRepository.Update(pedido);
+
+            var pedidoControleCozinha = _pedidoControleCozinhaRepository.GetByPedidoId(pedidoCancelationRequest.Id);
+
+            if (pedidoControleCozinha is not null)
+            {
+                pedidoControleCozinha.Status = StatusPedido.Cancelado;
+                _pedidoControleCozinhaRepository.Update(pedidoControleCozinha);
+            }
+
         }
 
         public void Delete(int id)
@@ -186,6 +217,7 @@ namespace Core.Services
             }
 
         }
+
     }
 
 }

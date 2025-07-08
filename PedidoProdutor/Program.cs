@@ -39,6 +39,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         sql => sql.EnableRetryOnFailure());
 }, ServiceLifetime.Scoped);
 
+builder.Services.AddScoped<IPedidoControleCozinhaRepository, PedidoControleCozinhaRepository>();
 builder.Services.AddScoped<IPedidoItemRepository, PedidoItemRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
@@ -54,7 +55,7 @@ builder.Services.AddFluentValidationClientsideAdapters();
 //builder.Services.AddValidatorsFromAssemblyContaining<ContatoRequestValidator>();
 //builder.Services.AddValidatorsFromAssemblyContaining<RegiaoRequestValidator>();
 
-builder.WebHost.UseUrls("http://*:8080");
+//builder.WebHost.UseUrls("http://*:8080");
 
 var app = builder.Build();
 

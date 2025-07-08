@@ -1,4 +1,6 @@
-﻿namespace Core.Entities
+﻿using Core.Enums;
+
+namespace Core.Entities
 {
     public class Pedido : EntityBase
     {
@@ -13,17 +15,13 @@
 
         public string? DescricaoCancelamento { get; set; }
 
+        public PedidoControleCozinha? PedidoControleCozinha { get; set; }
+
         public required Usuario Usuario { get; set; }
 
         public ICollection<PedidoItem> Itens { get; set; } = [];
 
     }
 
-    public enum StatusPedido
-    {
-        Pendente,
-        Aceito,
-        Rejeitado,
-        Cancelado
-    }
+   
 }
