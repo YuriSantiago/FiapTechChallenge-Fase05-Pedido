@@ -8,7 +8,6 @@ namespace Infrastructure.Repositories
 
         public ProdutoRepository(ApplicationDbContext context) : base(context)
         {
-
         }
 
         public IList<Produto> GetAllByCategory(short categoria)

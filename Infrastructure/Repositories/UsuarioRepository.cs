@@ -7,7 +7,6 @@ namespace Infrastructure.Repositories
     {
         public UsuarioRepository(ApplicationDbContext context) : base(context)
         {
-
         }
     }
 }

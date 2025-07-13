@@ -8,7 +8,6 @@ namespace Infrastructure.Repositories
 
         public PedidoRepository(ApplicationDbContext context) : base(context)
         {
-
         }
 
     }

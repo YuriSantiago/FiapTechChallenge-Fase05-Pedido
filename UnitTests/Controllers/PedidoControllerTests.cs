@@ -209,8 +209,6 @@ namespace UnitTests.Controllers
             Assert.Equal("Pedido não pode mais ser cancelado!", value.GetValue(badRequest.Value)?.ToString());
         }
 
-
-
         [Fact]
         public async Task Delete_ShouldReturnOk_WhenIdIsValid()
         {

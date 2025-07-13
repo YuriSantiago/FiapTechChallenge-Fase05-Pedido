@@ -32,7 +32,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 builder.Services.AddMassTransit(x =>
 {
-
     x.AddConsumer<PedidoCriado>();
     x.AddConsumer<PedidoCancelado>();
     x.AddConsumer<PedidoDeletado>();
@@ -69,7 +68,6 @@ builder.Services.AddMassTransit(x =>
    
 
 });
-
 
 var host = builder.Build();
 host.Run();

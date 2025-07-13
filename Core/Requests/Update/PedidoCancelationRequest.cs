@@ -1,6 +1,4 @@
-﻿using Core.Entities;
-
-namespace Core.Requests.Update
+﻿namespace Core.Requests.Update
 {
     public class PedidoCancelationRequest
     {

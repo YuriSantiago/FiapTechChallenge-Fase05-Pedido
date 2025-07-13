@@ -1,12 +1,12 @@
 using Core.Interfaces.Repositories;
 using Core.Interfaces.Services;
 using Core.Services;
-//using Core.Validators;
+using Core.Validators;
+using FluentValidation;
 using FluentValidation.AspNetCore;
-//using FluentValidation;
 using Infrastructure.Repositories;
-using Microsoft.EntityFrameworkCore;
 using MassTransit;
+using Microsoft.EntityFrameworkCore;
 using Prometheus;
 
 
@@ -44,7 +44,6 @@ builder.Services.AddScoped<IPedidoItemRepository, PedidoItemRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<IProdutoRepository, ProdutoRepository>();
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
-
 builder.Services.AddScoped<IPedidoService, PedidoService>();
 
 // Adiciona a validação automática e adaptadores de cliente
@@ -52,20 +51,21 @@ builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 
 // Registro dos validadores
-//builder.Services.AddValidatorsFromAssemblyContaining<ContatoRequestValidator>();
-//builder.Services.AddValidatorsFromAssemblyContaining<RegiaoRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<PedidoCancelationRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<PedidoDeleteRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<PedidoItemRequestValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<PedidoRequestValidator>();
 
-//builder.WebHost.UseUrls("http://*:8080");
+builder.WebHost.UseUrls("http://*:8080");
 
 var app = builder.Build();
 
 app.UseSwagger();
 app.UseSwaggerUI();
-
 app.UseRouting();
 app.UseMetricServer();
 app.UseHttpMetrics();
-app.UseHttpsRedirection();
+//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

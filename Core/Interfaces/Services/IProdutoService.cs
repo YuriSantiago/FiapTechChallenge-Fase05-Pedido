@@ -13,8 +13,6 @@ namespace Core.Interfaces.Services
 
         IList<ProdutoDTO> GetAllByCategory(short categoria);
 
-        void Create(ProdutoRequest produtoRequest);
-
         void Put(PedidoCancelationRequest produtoUpdateRequest);
 
         void Delete(int id);
