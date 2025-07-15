@@ -15,7 +15,6 @@ namespace PedidoProdutor.Controllers
         private readonly IConfiguration _configuration;
         private readonly IPedidoService _pedidoService;
     
-
         public PedidoController(IBus bus, IConfiguration configuration, IPedidoService pedidoService)
         {
             _bus = bus;
@@ -136,15 +135,15 @@ namespace PedidoProdutor.Controllers
         /// <response code="400">Erro ao deletar o pedido</response>
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
-        [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Delete([FromRoute] int id)
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromBody] PedidoDeleteRequest pedidoDeleteRequest)
         {
 
             try
             {
                 var nomeFila = _configuration.GetSection("MassTransit:Queues")["PedidoExclusaoQueue"] ?? string.Empty;
                 var endpoint = await _bus.GetSendEndpoint(new Uri($"queue:{nomeFila}"));
-                await endpoint.Send(new PedidoDeleteRequest { Id = id });
+                await endpoint.Send(new PedidoDeleteRequest { Id = pedidoDeleteRequest.Id });
 
                 return Ok();
             }
