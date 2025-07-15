@@ -213,31 +213,37 @@ namespace UnitTests.Controllers
         public async Task Delete_ShouldReturnOk_WhenIdIsValid()
         {
             // Arrange
-            int id = 1;
+            var pedidoDeleteRequest = new PedidoDeleteRequest
+            {
+                Id = 1
+            };
 
             var endpointMock = new Mock<ISendEndpoint>();
             _mockBus.Setup(b => b.GetSendEndpoint(It.IsAny<Uri>())).ReturnsAsync(endpointMock.Object);
             _mockConfiguration.Setup(c => c.GetSection("MassTransit:Queues")["PedidoCadastroQueue"]).Returns("filaCadastroPedido");
 
             // Act
-            var result = await _pedidoController.Delete(id);
+            var result = await _pedidoController.Delete(pedidoDeleteRequest);
 
             // Assert
             var ok = Assert.IsType<OkResult>(result);
-            endpointMock.Verify(e => e.Send(It.Is<PedidoDeleteRequest>(r => r.Id == id), default), Times.Once);
+            endpointMock.Verify(e => e.Send(It.Is<PedidoDeleteRequest>(r => r.Id == pedidoDeleteRequest.Id), default), Times.Once);
         }
 
         [Fact]
         public async Task Delete_ShouldReturnBadRequest_WhenQueueFails()
         {
             // Arrange
-            int id = 1;
+            var pedidoDeleteRequest = new PedidoDeleteRequest
+            {
+                Id = 1
+            };
 
             _mockConfiguration.Setup(c => c.GetSection("MassTransit:Queues")["PedidoCadastroQueue"]).Returns("filaCadastroPedido");
             _mockBus.Setup(b => b.GetSendEndpoint(It.IsAny<Uri>())).ThrowsAsync(new Exception("Falha ao deletar"));
 
             // Act
-            var result = await _pedidoController.Delete(id);
+            var result = await _pedidoController.Delete(pedidoDeleteRequest);
 
             // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
