@@ -1,5 +1,4 @@
 ﻿using Core.DTOs;
-using Core.Entities;
 using Core.Requests.Create;
 using Core.Requests.Delete;
 using Core.Requests.Update;

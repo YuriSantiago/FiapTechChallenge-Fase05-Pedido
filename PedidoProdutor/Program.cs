@@ -9,7 +9,6 @@ using MassTransit;
 using Microsoft.EntityFrameworkCore;
 using Prometheus;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = builder.Configuration;
@@ -65,7 +64,6 @@ app.UseSwaggerUI();
 app.UseRouting();
 app.UseMetricServer();
 app.UseHttpMetrics();
-//app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
 app.Run();

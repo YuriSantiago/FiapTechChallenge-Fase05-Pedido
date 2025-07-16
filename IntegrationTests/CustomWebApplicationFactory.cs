@@ -1,5 +1,6 @@
 ﻿using Core.Entities;
 using Core.Enums;
+using Core.Helpers;
 using Infrastructure.Repositories;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
@@ -49,7 +50,7 @@ namespace IntegrationTests
             {
                 Nome = "Eduardo",
                 Email = "eduardo@email.com",
-                Senha = "eduardo",
+                Senha = Base64Helper.Encode("eduardo"),
                 Role = "CLIENTE"
             });
 

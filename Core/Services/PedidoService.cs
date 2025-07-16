@@ -148,6 +148,8 @@ namespace Core.Services
 
             _pedidoRepository.Create(pedido);
 
+            IncluirItensPedido(pedido, pedidoRequest.Itens);
+
             var pedidoControleCozinha = new PedidoControleCozinha()
             {
                 PedidoId = pedido.Id,
@@ -157,8 +159,6 @@ namespace Core.Services
             };
 
             _pedidoControleCozinhaRepository.Create(pedidoControleCozinha);
-
-            IncluirItensPedido(pedido, pedidoRequest.Itens);
         }
 
         public bool VerifyPossibilityToCancel(int id)

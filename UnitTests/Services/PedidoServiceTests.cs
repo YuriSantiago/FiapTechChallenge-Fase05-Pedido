@@ -1,11 +1,11 @@
 ﻿using Core.Entities;
 using Core.Enums;
+using Core.Helpers;
 using Core.Interfaces.Repositories;
 using Core.Requests.Create;
 using Core.Requests.Update;
 using Core.Services;
 using Moq;
-using System.Data;
 
 namespace UnitTests.Services
 {
@@ -41,7 +41,7 @@ namespace UnitTests.Services
                     PrecoTotal = 50.00M,
                     Status = StatusPedido.Pendente,
                     TipoEntrega = "DELIVERY",
-                    Usuario = new Usuario {Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = "yuri", Role = "ADMIN"}
+                    Usuario = new Usuario {Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = Base64Helper.Encode("yuri"), Role = "ADMIN"}
                }
              };
 
@@ -67,7 +67,7 @@ namespace UnitTests.Services
                 PrecoTotal = 50.00M,
                 Status = StatusPedido.Pendente,
                 TipoEntrega = "DELIVERY",
-                Usuario = new Usuario { Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = "yuri", Role = "ADMIN" }
+                Usuario = new Usuario { Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = Base64Helper.Encode("yuri"), Role = "ADMIN" }
             };
 
             _pedidoRepositoryMock.Setup(repo => repo.GetById(It.Is<int>(id => id == 1), It.IsAny<Func<IQueryable<Pedido>, IQueryable<Pedido>>>())).Returns(pedido);
@@ -89,7 +89,7 @@ namespace UnitTests.Services
                 Id = 1,
                 Nome = "Yuri",
                 Email = "yuri@email.com",
-                Senha = "yuri",
+                Senha = Base64Helper.Encode("yuri"),
                 Role = "ADMIN"
             };
 
@@ -144,7 +144,7 @@ namespace UnitTests.Services
                 PrecoTotal = 50.00M,
                 Status = status,
                 TipoEntrega = "DELIVERY",
-                Usuario = new Usuario { Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = "yuri", Role = "ADMIN" }
+                Usuario = new Usuario { Id = 1, Nome = "Yuri", Email = "yuri@email.com", Senha = Base64Helper.Encode("yuri"), Role = "ADMIN" }
             };
 
             _pedidoRepositoryMock.Setup(r => r.GetById(1)).Returns(pedido);
@@ -165,7 +165,7 @@ namespace UnitTests.Services
                 Id = 1,
                 Nome = "Yuri Santiago",
                 Email = "yuri@email.com",
-                Senha = "yuri",
+                Senha = Base64Helper.Encode("yuri"),
                 Role = "ADMIN"
             };
 
