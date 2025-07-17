@@ -9,7 +9,6 @@ namespace Core.Validators
         public PedidoCancelationRequestValidator()
         {
             RuleFor(x => x.Id)
-                .NotEmpty().WithMessage("O ID do pedido é obrigatório.")
                 .GreaterThan(0).WithMessage("O ID do pedido deve ser maior que zero.");
 
             RuleFor(regiao => regiao.DescricaoCancelamento)
