@@ -11,6 +11,7 @@ namespace PedidoProdutor.Controllers
     [Route("/[controller]")]
     public class PedidoController : ControllerBase
     {
+        // Comentário para teste de esteira
         private readonly IBus _bus;
         private readonly IConfiguration _configuration;
         private readonly IPedidoService _pedidoService;
